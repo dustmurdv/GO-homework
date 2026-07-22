@@ -4,18 +4,30 @@ import "fmt"
 
 func main() {
 
-	a := uint8(0b10101010)
-	b := uint8(0b11110000)
+	product := NewProduct(1, "Keyboard", 250000, 10)
 
-	andResult := a & b
-	orResult := a | b
-	xorResult := a ^ b
-	andNotResult := a &^ b
-	shiftResult := a >> 2
+	fmt.Println("ID:", product.ID())
+	fmt.Println("Name:", product.Name())
+	fmt.Println("Price:", product.Price())
+	fmt.Println("Stock:", product.Stock())
 
-	fmt.Printf("AND     : %08b\n", andResult)
-	fmt.Printf("OR      : %08b\n", orResult)
-	fmt.Printf("XOR     : %08b\n", xorResult)
-	fmt.Printf("AND NOT : %08b\n", andNotResult)
-	fmt.Printf("SHIFT   : %08b\n", shiftResult)
+	fmt.Println()
+
+	err := product.SetPrice(300000)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	product.AddStock(5)
+
+	err = product.Reserve(3)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("After changes")
+	fmt.Println("Price:", product.Price())
+	fmt.Println("Stock:", product.Stock())
 }

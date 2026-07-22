@@ -2,26 +2,49 @@ package main
 
 import "fmt"
 
-func isZeroInt(n int) bool {
-	return n == 0
-}
-
-func isZeroString(s string) bool {
-	return s == ""
-}
-
-func isZeroFloat(f float64) bool {
-	return f == 0
-}
-
 func main() {
 
-	fmt.Println(isZeroInt(0))
-	fmt.Println(isZeroInt(5))
+	cart := NewCart()
 
-	fmt.Println(isZeroString(""))
-	fmt.Println(isZeroString("Hello"))
+	product1 := NewProduct(1, "Keyboard", 250000, 10)
+	product2 := NewProduct(2, "Mouse", 120000, 20)
+	product3 := NewProduct(3, "Monitor", 1800000, 5)
 
-	fmt.Println(isZeroFloat(0.0))
-	fmt.Println(isZeroFloat(3.14))
+	cart.AddProduct(product1)
+	cart.AddProduct(product2)
+	cart.AddProduct(product3)
+
+	fmt.Println("Products in cart:")
+
+	for _, product := range cart.Products() {
+		fmt.Println(product.Name(), "-", product.Price())
+	}
+
+	fmt.Println()
+
+	fmt.Println("Total items:", cart.TotalItems())
+
+	fmt.Println()
+
+	err := cart.RemoveProduct(2)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("After removing Mouse:")
+
+	for _, product := range cart.Products() {
+		fmt.Println(product.Name())
+	}
+
+	fmt.Println()
+
+	fmt.Println("Total items:", cart.TotalItems())
+
+	fmt.Println()
+
+	cart.Clear()
+
+	fmt.Println("After clear:", cart.TotalItems())
 }
