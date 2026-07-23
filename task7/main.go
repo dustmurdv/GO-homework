@@ -2,27 +2,21 @@ package main
 
 import "fmt"
 
-func simulateConnections(maxConnections int) (int, int) {
-
-	accepted := 0
-	rejected := 0
-
-	for i := 1; i <= 10; i++ {
-
-		if accepted < maxConnections {
-			accepted++
-		} else {
-			rejected++
-		}
-	}
-
-	return accepted, rejected
-}
-
 func main() {
 
-	a, r := simulateConnections(5)
+	keyboard := NewProduct("P1", "Keyboard", 250000, 5, "PC")
+	mouse := NewProduct("P2", "Mouse", 150000, 10, "PC")
 
-	fmt.Println("Accepted:", a)
-	fmt.Println("Rejected:", r)
+	cart := NewCart()
+
+	cart.Add(keyboard)
+	cart.Add(mouse)
+
+	card := CardProcessor{}
+
+	err := ProcessOrder(cart, "AKMAL001", card)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 }
